@@ -7,7 +7,6 @@ function normolize(name) {
 }
 
 export default function formatName(fio) {
-  console.log('|' + fio + "|");
   if (fio === undefined) {
     return 'Invalid fullname';
   }
