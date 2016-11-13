@@ -4,10 +4,13 @@ import cors from 'cors';
 import add from './task2A_';
 import formatName from './task2B';
 import canonize from './task2C';
+import task3ARouter from './task3A';
 
 const app = express();
 
 app.use(cors());
+app.use('/task3A', task3ARouter);
+
 app.get('/task2A', (req, res) => {
   const result = add(req.query.a, req.query.b);
   res.send('' + result);

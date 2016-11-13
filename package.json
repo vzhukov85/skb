@@ -32,6 +32,9 @@
     "babel-runtime": "^6.11.6",
     "cors": "^2.8.1",
     "express": "^4.14.0",
+    "fetch": "^1.1.0",
+    "lodash": "^4.16.6",
+    "node-fetch": "^1.6.3",
     "winston": "^2.3.0",
     "xregexp": "^3.1.1"
   },
