@@ -1,4 +1,7 @@
 import XRegExp from 'xregexp';
+import express from 'express';
+
+const router = express.Router();
 
 function normolize(name) {
   const first = name[0];
@@ -6,7 +9,7 @@ function normolize(name) {
   return first.toUpperCase() + last.toLowerCase();
 }
 
-export default function formatName(fio) {
+function formatName(fio) {
   if (fio === undefined) {
     return 'Invalid fullname';
   }
@@ -31,3 +34,10 @@ export default function formatName(fio) {
   const middleName = normolize(parsedFio[4]);
   return `${lastName} ${firstName[0]}. ${middleName[0]}.`;
 }
+
+router.get('/', (req, res) => {
+  const result = formatName(req.query.fullname);
+  res.send('' + result);
+});
+
+module.exports = router;

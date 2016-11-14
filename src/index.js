@@ -1,29 +1,17 @@
 import express from 'express';
 import cors from 'cors';
 
-import add from './task2A_';
-import formatName from './task2B';
-import canonize from './task2C';
-import task3ARouter from './task3A';
+import task2A from './task2A';
+import task2B from './task2B';
+import task2C from './task2C';
+import task3A from './task3A';
 
 const app = express();
 
 app.use(cors());
-app.use('/task3A', task3ARouter);
-
-app.get('/task2A', (req, res) => {
-  const result = add(req.query.a, req.query.b);
-  res.send('' + result);
-});
-
-app.get('/task2B', (req, res) => {
-  const result = formatName(req.query.fullname);
-  res.send('' + result);
-});
-
-app.get('/task2C', (req, res) => {
-  const result = canonize(req.query.username);
-  res.send('' + result);
-});
+app.use('/task2A', task2A);
+app.use('/task2B', task2B);
+app.use('/task2C', task2C);
+app.use('/task3A', task3A);
 
 app.listen(3000, () => {});

@@ -12,10 +12,6 @@ fetch(pcUrl).then(async (res) => {
   console.log('Чтото пошло не так:', err);
 });
 
-router.get('/', (req, res) => {
-  res.send(pc);
-});
-
 router.get('/volumes', (req, res) => {
   const volumes = {};
   _.forEach(pc.hdd, (hdd) => {
@@ -33,30 +29,20 @@ router.get('/volumes', (req, res) => {
   return res.send(volumes);
 });
 
-function prepareResponse(res, ...pathLine) {
+router.get('/*', (req, res) => {
+  const pathLine = req.path.split('/');
   let isValid = true;
   let current = pc;
   _.forEach(pathLine, (path) => {
+    if (path === '') return;
     if (_.indexOf(_.keys(current), path) === -1) {
       isValid = false;
-      return;
+      return false;
     }
     current = _.get(current, path);
   });
   if (!isValid) return res.status(404).send('Not Found');
   return res.json(current);
-}
-
-router.get('/:first', (req, res) => prepareResponse(res,
-  req.params.first));
-
-router.get('/:first/:second', (req, res) => prepareResponse(res,
-    req.params.first,
-    req.params.second));
-
-router.get('/:first/:second/:third', (req, res) => prepareResponse(res,
-    req.params.first,
-    req.params.second,
-    req.params.third));
+});
 
 module.exports = router;
